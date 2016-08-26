@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head ng-app="header" ng-controller="headCtrl">
+    <meta charset="UTF-8">
+    <title>{{item.title}}</title>
+    <meta name="keywords" content="{{item.keyword}}" />
+    <meta name="description" content="{{item.description}}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="./css/common.css">
+
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+    <script src="./js/react.js"></script>
+    <script src="./js/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+    <script type="text/javascript" async="" src="http://static.duoshuo.com/embed.js" charset="UTF-8"></script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="./index.html">宝&茹</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="1.html?cid=692">HTML</a></li>
+                <li><a href="1.html?cid=693">CSS</a></li>
+                <li><a href="1.html?cid=697">JS</a></li>
+                <li><a href="1.html?cid=696">NODE</a></li>
+                <li><a href="1.html?cid=694">REACT</a></li>
+                <li><a href="1.html?cid=695">REACT-NATIVE</a></li>
+            </ul>
+            <form action="1.html?" method="get" class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">搜索</button>
+            </form>
+
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+    <div class="navbar-info">
+        <p>Personale</p>
+        <span>
+            此网站仅供学习交流，不承担任何法律责任，如果该网站文章内容有损您的权益，请联系站长删除(邮箱：1197036595@qq.com)，
+            <br>
+            网站每周都会更新新的文章,欢迎大家的访问和支持。
+        </span>
+    </div>
+    <div class="scroll-down">
+        <h4>SCROLL DOWN</h4>
+        <a href="#container" class="downarrow scroll"><span></span></a>
+    </div>
+</nav>
+<div id="container">
+    <div class="box" id="item">
+        <div style="text-align: center;margin:40px 0;">
+            加载中。。。
+        </div>
+    </div>
+    <div class="ds-thread" data-thread-key="" data-title="" data-url=""></div>
+</div>
+
+<div id="footer">
+    <p>
+        技术支持 bootstrap,react.js <br>
+        Copyright © 2016.bao&ru All rights reserved.
+    </p>
+</div>
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    var duoshuoQuery = {short_name:"baoru"};
+</script>
+<!-- 多说公共JS代码 end -->
+<script src="./js/base64.js"></script>
+<script type="text/babel" src="./js/detail.js"></script>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+
+    function getUriParam(){
+        var url = window.location.href;
+        var params = url.split('?')[1];
+
+        var paramRow = new Array();
+        paramRow['cid'] = 698;
+        paramRow['page'] = 1;
+        paramRow['q'] = "";
+        if(params){
+            var Row = params.split('&');
+            for(var i=0;i<Row.length;i++){
+                var info = Row[i].split('=');
+                paramRow[info[0]] = info[1];
+            }
+        }
+        return paramRow;
+
+    }
+
+    var param = getUriParam();
+    var uri = "http://115.29.202.187/blog/index.php//api?c=index&a=detail&id=" + param['id'] + "&typeid=692&field=body"
+    var app = angular.module('header',[]);
+    app.controller('headCtrl',function($scope,$http){
+        console.log(uri);
+        $http.get(uri).success(function(response){
+            var data = eval(response);
+            //console.log(data);
+            var item = base64_decode(data['item']);
+	    $scope.item = item;
+        })
+    })
+
+</script>
+
+</body>
+</html>
